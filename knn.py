@@ -95,12 +95,11 @@ class KNNClassifier:
            with distances between each test and each train sample
         """
 
-        first_axis = np.repeat(
-            self.train_X[np.newaxis, :, :], X.shape[0], axis=0)
-        second_axis = np.repeat(X[:, np.newaxis, :],
-                                self.train_X.shape[0], axis=1)
 
-        distance = np.linalg.norm(first_axis - second_axis, axis=2, ord=1)
+        
+        raw = self.train_X[np.newaxis, :, :] - X[:, np.newaxis, :]
+
+        distance = np.linalg.norm(raw, axis=2, ord=1)
 
         return distance
 
